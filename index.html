@@ -1,0 +1,581 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="송무석(2018) 「MMORPG 게이머 문화의 차별과 능력주의 연구」를 연구 지형부터 결론, 2026년의 재독까지 시각화한 포트폴리오.">
+<style>html{color-scheme:light}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>게이머 문화의 차별과 능력주의</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=Nanum+Myeongjo:wght@700;800&display=swap">
+<style>
+/* Layout: 학위논문(명조 표제) × 전투로그(모노 데이터). 좌측 고정 목차 + 본문 단일 컬럼, 시각 자료는 본문 폭 안에서 확장. WCL Rank % 6색은 의미 색으로만 쓴다. */
+:root{
+  --bg:#f2f3f6; --surface:#ffffff; --sunk:#e8eaf0; --ink:#1a1c27; --muted:#585e72; --line:#d6d9e2;
+  --accent:#a8500c; --accent-soft:#f6e6d6;
+  --p-gray:#8a8a8a; --p-green:#2c8f1c; --p-blue:#0a66c8; --p-purple:#8d33d6; --p-orange:#d46a00; --p-gold:#a98820;
+  --display:"Nanum Myeongjo","Noto Serif KR",Batang,serif;
+  --body:"IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#10121b; --surface:#181b27; --sunk:#202434; --ink:#e6e8f0; --muted:#9ba1b6; --line:#2c3144;
+  --accent:#ff9a3d; --accent-soft:#3a2716;
+  --p-gray:#9d9d9d; --p-green:#3fd32a; --p-blue:#3d9bff; --p-purple:#b866ff; --p-orange:#ff8000; --p-gold:#e5cc80;
+  color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#10121b; --surface:#181b27; --sunk:#202434; --ink:#e6e8f0; --muted:#9ba1b6; --line:#2c3144;
+  --accent:#ff9a3d; --accent-soft:#3a2716;
+  --p-gray:#9d9d9d; --p-green:#3fd32a; --p-blue:#3d9bff; --p-purple:#b866ff; --p-orange:#ff8000; --p-gold:#e5cc80;
+  color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.75;-webkit-font-smoothing:antialiased;word-break:keep-all;overflow-wrap:break-word}
+.wrap{max-width:1160px;margin:0 auto;padding-inline:20px;padding-block:0 80px;display:grid;grid-template-columns:200px minmax(0,1fr);gap:56px}
+@media (max-width:920px){.wrap{grid-template-columns:minmax(0,1fr);gap:0}.toc{display:none}}
+
+/* TOC */
+.toc{position:sticky;top:calc(env(safe-area-inset-top,0px) + 32px);align-self:start;padding-top:48px;font-size:13px}
+.toc p{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:0 0 12px}
+.toc ol{list-style:none;margin:0;padding:0;display:grid;gap:2px;border-left:1px solid var(--line)}
+.toc a{display:block;padding:5px 0 5px 14px;color:var(--muted);text-decoration:none;margin-left:-1px;border-left:2px solid transparent;line-height:1.4}
+.toc a:hover{color:var(--ink)}
+.toc a.on{color:var(--ink);border-left-color:var(--accent);font-weight:600}
+.toc a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+main{min-width:0}
+section{padding-top:72px}
+h1,h2,h3{text-wrap:balance}
+h2{font-family:var(--display);font-weight:800;font-size:clamp(26px,3.2vw,34px);line-height:1.3;margin:0 0 8px;letter-spacing:-.01em}
+h3{font-size:18px;font-weight:700;margin:40px 0 10px;line-height:1.4}
+p{margin:0 0 14px;max-width:68ch}
+.kicker{font-family:var(--mono);font-size:12px;letter-spacing:.1em;color:var(--accent);margin:0 0 10px;text-transform:uppercase}
+.lede{color:var(--muted);font-size:17px;max-width:62ch;margin-bottom:28px}
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.note{font-size:13px;color:var(--muted);margin-top:10px}
+a{color:var(--accent)}
+
+/* Hero */
+.hero{padding-top:56px;border-bottom:1px solid var(--line);padding-bottom:40px}
+.hero .eyebrow{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.06em;margin:0 0 22px}
+.hero h1{font-family:var(--display);font-weight:800;font-size:clamp(32px,5.4vw,56px);line-height:1.18;margin:0 0 12px;letter-spacing:-.02em}
+.hero .sub{font-size:clamp(17px,2vw,20px);color:var(--muted);margin:0 0 28px}
+.hero .meta{display:flex;flex-wrap:wrap;gap:6px 22px;font-size:14px;color:var(--muted);margin-bottom:40px}
+.hero .meta b{color:var(--ink);font-weight:600}
+.claim{font-family:var(--display);font-weight:700;font-size:clamp(20px,2.6vw,26px);line-height:1.55;margin:0 0 30px;max-width:30em;padding-left:18px;border-left:3px solid var(--accent)}
+
+/* Parse band */
+.band{margin-top:6px}
+.band .track{position:relative;padding-top:22px}
+.band .bar{display:flex;height:34px;border-radius:3px;overflow:hidden}
+.band .seg{display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:11px;color:#fff;font-weight:600;min-width:0;white-space:nowrap}
+.band .labels{position:relative;height:16px;font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:6px}
+.band .labels span{position:absolute;top:0;transform:translateX(-50%)}
+.band .labels span:first-child{transform:none}
+.band .labels span:last-child{transform:translateX(-100%)}
+@media (max-width:560px){.band .labels span:nth-child(5){display:none}}
+.band .pin{position:absolute;top:14px;bottom:-8px;width:2px;background:var(--ink)}
+.band .pin span{position:absolute;top:-20px;left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:11px;white-space:nowrap;color:var(--ink)}
+.band-wrap{padding-top:10px}
+.g{background:var(--p-gray)}.gr{background:var(--p-green)}.bl{background:var(--p-blue)}.pu{background:var(--p-purple)}.or{background:var(--p-orange)}.go{background:var(--p-gold)}
+
+/* Facts row */
+.facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);margin-top:36px}
+.facts div{background:var(--surface);padding:14px 16px;min-width:0}
+.facts dt{font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase}
+.facts dd{margin:4px 0 0;font-size:14px;line-height:1.5}
+@media (max-width:720px){.facts{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* Figure frame */
+figure{margin:24px 0 8px;background:var(--surface);border:1px solid var(--line);border-radius:4px;padding:22px}
+figcaption{font-family:var(--mono);font-size:12px;color:var(--muted);margin-bottom:16px;letter-spacing:.02em}
+.scroll{overflow-x:auto}
+
+/* Research map */
+.rmap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px}
+.rmap .col{background:var(--sunk);border-radius:3px;padding:14px 16px;min-width:0}
+.rmap h4{margin:0 0 6px;font-size:14px}
+.rmap ul{margin:0;padding-left:18px;font-size:13.5px;color:var(--muted)}
+.rmap .gap{grid-column:1/-1;text-align:center;font-family:var(--mono);font-size:12px;color:var(--muted);padding:6px 0}
+.rmap .this{grid-column:1/-1;border:2px solid var(--accent);border-radius:3px;padding:14px 16px;background:var(--accent-soft)}
+.rmap .this h4{color:var(--accent)}
+.rmap .this p{margin:0;font-size:14px;max-width:none}
+@media (max-width:640px){.rmap{grid-template-columns:minmax(0,1fr)}}
+
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.chips span{font-size:12.5px;padding:3px 10px;border:1px solid var(--line);border-radius:20px;color:var(--muted);background:var(--surface)}
+
+/* Tables */
+table{border-collapse:collapse;width:100%;font-size:14px}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+thead th{font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;color:var(--muted);font-weight:500;text-transform:uppercase}
+tbody th{font-weight:600;white-space:nowrap}
+
+/* Heatmap */
+.heat{min-width:560px}
+.heat td,.heat th{text-align:center;padding:8px 6px;font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:13px;border-bottom:none}
+.heat tbody th{text-align:left;font-family:var(--body);font-size:13.5px}
+.heat td{border:2px solid var(--surface)}
+.heat tr.hl th{color:var(--accent)}
+.heat .tot{color:var(--muted);font-weight:600}
+
+/* Timeline */
+.tl{list-style:none;margin:0;padding:0;position:relative}
+.tl li{display:grid;grid-template-columns:96px minmax(0,1fr);gap:16px;padding:12px 0;border-bottom:1px dashed var(--line)}
+.tl li:last-child{border-bottom:none}
+.tl .yr{font-family:var(--mono);font-size:13px;color:var(--accent);font-weight:600;padding-top:2px}
+.tl b{display:block;font-size:15px}
+.tl span{font-size:13.5px;color:var(--muted)}
+.tl li.after .yr{color:var(--muted)}
+.tl li.after b{color:var(--muted)}
+.tl li.mark{background:var(--accent-soft);margin-inline:-12px;padding-inline:12px;border-radius:3px;border-bottom:none}
+
+/* Goldpot SVG */
+.gp{width:100%;min-width:540px;height:auto;display:block}
+.gp .box{fill:var(--sunk);stroke:var(--line);stroke-width:1.2}
+.gp .box.lead{fill:var(--surface);stroke:var(--ink)}
+.gp .box.pot{fill:var(--accent-soft);stroke:var(--accent);stroke-width:1.6}
+.gp .t1{fill:var(--ink);font:700 15px var(--body)}
+.gp .t2{fill:var(--muted);font:400 11.5px var(--body)}
+.gp .tl{fill:var(--accent);font:500 11px var(--mono)}
+.gp .ln{stroke:var(--accent);stroke-width:1.6;fill:none}
+.gp .ln.d{stroke:var(--muted);stroke-dasharray:4 4}
+.gp .ah{fill:var(--accent)}
+.gp .ah2{fill:var(--muted)}
+
+/* A/B case */
+.ab{display:grid;gap:18px}
+.ab .row{display:grid;grid-template-columns:120px minmax(0,1fr);gap:14px;align-items:center}
+.ab .row > span{font-size:13px;color:var(--muted)}
+.ab .bars{display:grid;gap:6px}
+.ab .b{display:grid;grid-template-columns:14px minmax(0,1fr) 120px;align-items:center;gap:10px;font-family:var(--mono);font-size:12.5px;font-variant-numeric:tabular-nums}
+.ab .b u{display:block;height:18px;background:var(--sunk);border-radius:2px;text-decoration:none}
+.ab .b i{display:block;height:18px;border-radius:2px}
+.ab .b em{font-style:normal;color:var(--muted);min-width:14px}
+.ab-legend{display:flex;gap:18px;flex-wrap:wrap;font-size:13px;margin-bottom:6px}
+.ab-legend span::before{content:"";display:inline-block;width:10px;height:10px;margin-right:6px;border-radius:2px;background:var(--c)}
+.verdict{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:20px}
+.verdict div{padding:14px 16px;border-radius:3px;background:var(--sunk);font-size:14px;min-width:0}
+.verdict b{display:block;margin-bottom:4px}
+@media (max-width:600px){.ab .row{grid-template-columns:minmax(0,1fr)}.verdict{grid-template-columns:minmax(0,1fr)}}
+
+/* Mirror (공조) */
+.mirror{display:grid;grid-template-columns:minmax(0,1fr) 88px minmax(0,1fr);gap:8px 0;align-items:stretch}
+.mirror .hd{font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;color:var(--muted);text-transform:uppercase;padding-bottom:6px}
+.mirror .hd.c{text-align:center;color:var(--accent)}
+.mirror .l,.mirror .r{background:var(--sunk);padding:11px 14px;font-size:14px;border-radius:3px;min-width:0}
+.mirror .r{background:var(--surface);border:1px solid var(--line)}
+.mirror .m{display:flex;align-items:center;justify-content:center;color:var(--accent);font-family:var(--mono);font-size:16px}
+.flow{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:20px;font-size:14px}
+.flow span{padding:7px 12px;border:1px solid var(--line);border-radius:3px;background:var(--surface)}
+.flow span.end{border-color:var(--accent);color:var(--accent);font-weight:600}
+.flow i{font-style:normal;color:var(--muted);font-family:var(--mono)}
+@media (max-width:640px){.mirror{grid-template-columns:minmax(0,1fr)}.mirror .m{transform:rotate(90deg);height:24px}.mirror .hd.c,.mirror .hd:nth-child(3){display:none}}
+
+/* Spectrum */
+.spec{position:relative;padding:58px 0 8px}
+.spec .axis{height:6px;border-radius:3px;background:linear-gradient(90deg,var(--muted),var(--accent))}
+.spec .ends{display:flex;justify-content:space-between;margin-top:10px;gap:16px}
+.spec .ends div{max-width:44%;font-size:13px;color:var(--muted)}
+.spec .ends b{display:block;color:var(--ink);font-size:14px}
+.spec .ends div:last-child{text-align:right}
+.spec .dot{position:absolute;top:38px;left:58%;transform:translateX(-50%);text-align:center}
+.spec .dot i{display:block;width:16px;height:16px;border-radius:50%;background:var(--surface);border:3px solid var(--accent);margin:0 auto 4px}
+.spec .dot span{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);white-space:nowrap;font-family:var(--mono);font-size:12px;color:var(--accent);font-weight:600}
+.forces{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:22px}
+.forces div{border-top:2px solid var(--line);padding-top:10px;font-size:14px;min-width:0}
+.forces div:last-child{border-top-color:var(--accent)}
+.forces b{display:block;margin-bottom:2px}
+@media (max-width:600px){.forces{grid-template-columns:minmax(0,1fr)}}
+
+/* Quote */
+blockquote{margin:22px 0;padding:4px 0 4px 18px;border-left:2px solid var(--line);color:var(--muted);font-size:15px;max-width:62ch}
+blockquote cite{display:block;font-style:normal;font-family:var(--mono);font-size:12px;margin-top:6px}
+
+/* Conclusion list */
+.claims{counter-reset:c;list-style:none;padding:0;margin:20px 0 0;display:grid;gap:12px}
+.claims li{counter-increment:c;display:grid;grid-template-columns:36px minmax(0,1fr);gap:10px;padding:14px 16px;background:var(--surface);border:1px solid var(--line);border-radius:3px;font-size:15px}
+.claims li::before{content:counter(c,decimal-leading-zero);font-family:var(--mono);color:var(--accent);font-size:13px;padding-top:2px}
+
+/* Review */
+.review{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;margin-top:24px}
+.review > div{min-width:0}
+.review h3{margin-top:0;display:flex;align-items:center;gap:10px}
+.review h3 i{display:inline-block;width:10px;height:10px;border-radius:50%}
+.item{padding:14px 0;border-top:1px solid var(--line)}
+.item b{display:block;font-size:15px;margin-bottom:4px}
+.item p{font-size:14px;color:var(--muted);margin:0}
+.tag{display:inline-block;font-family:var(--mono);font-size:10.5px;padding:1px 6px;border-radius:2px;margin-right:6px;vertical-align:1px;border:1px solid currentColor}
+.tag.o{color:var(--p-blue)}.tag.i{color:var(--accent)}
+@media (max-width:760px){.review{grid-template-columns:minmax(0,1fr)}}
+
+footer{margin-top:80px;padding-top:24px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}
+footer dl{display:grid;grid-template-columns:110px minmax(0,1fr);gap:4px 14px;margin:0}
+footer dt{font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase}
+footer dd{margin:0;min-width:0;overflow-wrap:anywhere}
+
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+html{scroll-behavior:smooth}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+<nav class="toc" aria-label="목차">
+  <p>Contents</p>
+  <ol>
+    <li><a href="#overview">개요</a></li>
+    <li><a href="#ch1">1장 · 연구 지형</a></li>
+    <li><a href="#ch2">2장 · 레이드 경제와 측정 도구</a></li>
+    <li><a href="#ch3a">3장 1절 · 측정 신앙의 장면</a></li>
+    <li><a href="#ch3b">3장 · 현실과 가상의 공조</a></li>
+    <li><a href="#ch3c">3장 2절 · 성과주체로서의 게이머</a></li>
+    <li><a href="#ch4">4장 · 결론</a></li>
+    <li><a href="#reread">2026년의 재독</a></li>
+  </ol>
+</nav>
+
+<main>
+<header class="hero" id="overview">
+  <p class="eyebrow">성균관대학교 일반대학원 비교문화협동과정 · 문화학 석사학위논문 · 2018</p>
+  <h1>MMORPG 게이머 문화의<br>차별과 능력주의 연구</h1>
+  <p class="sub">World of Warcraft의 레이드 콘텐츠와 게임 분석 플랫폼을 중심으로</p>
+  <div class="meta"><span><b>송무석</b></span><span>지도교수 천정환</span><span class="mono">vi, 122 p.</span><span class="mono">2018. 07</span></div>
+
+  <p class="claim">가상공간에서 문제가 되는 것은 비능력적 요인이 아니다. ‘능력’을 수치로 정확히 측정할 수 있다는 믿음이다.</p>
+
+  <div class="band-wrap">
+    <p class="kicker">Warcraft Logs · Rank % 색 등급</p>
+    <div class="band" role="img" aria-label="Warcraft Logs 백분위 색 등급: 0~25 회색, 26~49 녹색, 50~74 청색, 75~94 보라, 95~99 주황, 100 금색">
+      <div class="track"><div class="bar">
+        <div class="seg g" style="flex:25">회색</div>
+        <div class="seg gr" style="flex:24">녹색</div>
+        <div class="seg bl" style="flex:25">청색</div>
+        <div class="seg pu" style="flex:20">보라</div>
+        <div class="seg or" style="flex:5"></div>
+        <div class="seg go" style="flex:1"></div>
+      </div><div class="pin" style="left:83%"><span>로그 83%</span></div></div>
+      <div class="labels"><span style="left:0">0</span><span style="left:26%">26</span><span style="left:50%">50</span><span style="left:75%">75</span><span style="left:93.5%">95</span><span style="left:100%">100</span></div>
+    </div>
+    <p class="note">백분율은 상위 몇 %인지만 알려준다. 레이드 문화는 이 색의 경계를 ‘게임 능력’의 경계로 읽었다. (본문 3장 1절)</p>
+  </div>
+
+  <dl class="facts">
+    <div><dt>대상</dt><dd>WoW 한국 서버 레이드 이용자, 〈군단〉 ‘안토러스-불타는 왕좌’ 시즌</dd></div>
+    <div><dt>자료</dt><dd>〈와우 인벤〉 레이드 게시판, Warcraft Logs 전투 기록</dd></div>
+    <div><dt>방법</dt><dd>규칙·UI 구조 분석, 게시글 담론 분석, 단어빈도분석(Python 수집 · R 분석)</dd></div>
+    <div><dt>기간</dt><dd class="mono">2017.12 – 2018.05</dd></div>
+  </dl>
+</header>
+
+<section id="ch1">
+  <p class="kicker">Chapter 1 · 서론</p>
+  <h2>환금성에서 측정으로</h2>
+  <p class="lede">기존 연구는 게이머를 가상통화와 현실 화폐가 연결된 ‘자본주의적 경쟁 주체’로 읽었다. 이 논문은 같은 경쟁이 화폐 없이도, 측정 도구와 게이머가 만든 규칙의 결합만으로 작동한다는 데서 출발한다.</p>
+
+  <figure>
+    <figcaption>연구사 검토의 두 갈래와 이 연구의 자리</figcaption>
+    <div class="rmap">
+      <div class="col">
+        <h4>자본주의적 경쟁 주체로서의 게이머</h4>
+        <ul>
+          <li>아이템 현금거래와 소유권 (이혜린 2003, 임하나 2009)</li>
+          <li>게임 내 경제행위와 신자유주의 (김용재 2015)</li>
+          <li>경쟁 이데올로기의 내면화 (신현우 2014, 오영진 2016)</li>
+          <li>WoW의 물신적 주체, 골드 경작 (이윤송 2011)</li>
+        </ul>
+      </div>
+      <div class="col">
+        <h4>능력주의와 게임 문화</h4>
+        <ul>
+          <li>비능력적 요인 비판 (맥나미·밀러, 박남기 2016, 김범춘 2018)</li>
+          <li>랭킹 시스템과 세대 (이경혁 2016)</li>
+          <li>플레이 동기의 다양성 (Nick Yee 2006)</li>
+          <li>수치화된 계량과 공동체 약화 (Crenshaw &amp; Nardi 2017)</li>
+        </ul>
+      </div>
+      <div class="gap">↓ 비어 있던 자리: 게임 내부 규칙 × 외부 기술 × 커뮤니티 반응</div>
+      <div class="this">
+        <h4>이 연구</h4>
+        <p>UI와 게임 분석 플랫폼이 한국 서버 레이드 규칙과 결합해 차별과 배제를 만드는 과정. 비판의 대상은 비능력적 요인이 아니라 ‘수치화된 정보가 능력을 측정할 수 있다는 믿음’이다.</p>
+      </div>
+    </div>
+  </figure>
+
+  <h3>왜 한국 서버인가</h3>
+  <p>골드로 아이템을 경매하는 레이드 규칙(골팟)이 북미·유럽 서버에서는 지배적 문화가 아니다. 그리고 한국 사회의 능력주의가 가상공간에 반영되는 방식을 보려면 한국 이용자를 대상으로 해야 한다.</p>
+
+  <h3>이론적 도구</h3>
+  <div class="chips">
+    <span>마이클 영 · 메리토크라시</span><span>맥나미·밀러 · 비능력적 요인</span><span>박권일 · 응분의 보상체계</span><span>장은주 · 메리토크라시와 존엄</span><span>강내희 · 계산적 인간</span><span>T. L. Taylor · 감시 모드</span><span>Gadsby · 데이터의 해석</span><span>Egliston · 게임 분석 플랫폼</span><span>랑시에르 · 『불화』</span><span>호네트 · 인정투쟁</span><span>한병철 · 성과주체, 투명사회</span><span>푸코 · 규율권력</span><span>로이 바스카 · 비판적 실재론</span>
+  </div>
+</section>
+
+<section id="ch2">
+  <p class="kicker">Chapter 2 · WoW의 레이드 문화와 UI의 연결</p>
+  <h2>골드가 돌고, 숫자가 사람을 고른다</h2>
+  <p class="lede">레이드 보스는 25인 공격대에 아이템을 5~6개만 준다. 이 희소성을 다루려고 게이머들이 만든 분배 규칙이 골팟이고, 골팟에서 ‘제대로 일했는가’를 판정하는 도구가 미터기와 로그다.</p>
+
+  <h3>보상 분배의 다섯 방식</h3>
+  <figure class="scroll" style="padding:0">
+    <table style="min-width:560px">
+      <thead><tr><th>방식</th><th>기원</th><th>작동</th><th>한계</th></tr></thead>
+      <tbody>
+        <tr><th>주사위</th><td>개발사 기본값</td><td>1~100 무작위 수, 최고값 획득</td><td>운에 의존</td></tr>
+        <tr><th>개인 획득</th><td>개발사 기본값</td><td>개인별 무작위 아이템 또는 골드</td><td>운에 의존</td></tr>
+        <tr><th>마스터 콜</th><td>자생 규칙</td><td>공격대장이 공대 효율 기준으로 배분</td><td>불안정, 하드코어 전용</td></tr>
+        <tr><th>포인트</th><td>자생 규칙</td><td>참석 포인트로 입찰</td><td>정규 공대에서만 성립, 폐쇄적</td></tr>
+        <tr><th style="color:var(--accent)">골팟</th><td>자생 규칙</td><td>골드 경매, 종료 후 경매액을 N분의 1로 분배</td><td>막공의 표준이 되며 계층화의 관문으로</td></tr>
+      </tbody>
+    </table>
+  </figure>
+
+  <h3>골팟의 구성원과 골드의 흐름</h3>
+  <figure>
+    <figcaption>손님팟 · 업손팟 기준</figcaption>
+    <div class="scroll">
+    <svg class="gp" viewBox="0 0 720 430" role="img" aria-label="골팟 구조: 업손과 깡손이 입찰 골드를 경매 풀에 넣고, 경매액은 선수에게 분배된다. 공격대장이 모집과 경매를 진행하고, 선수는 아이템을 생산해 손님에게 넘긴다.">
+      <defs>
+        <marker id="a1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="ah" d="M0,0 L10,5 L0,10 z"/></marker>
+        <marker id="a2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="ah2" d="M0,0 L10,5 L0,10 z"/></marker>
+      </defs>
+      <rect class="box lead" x="250" y="14" width="220" height="64" rx="4"/>
+      <text class="t1" x="360" y="40" text-anchor="middle">공격대장</text>
+      <text class="t2" x="360" y="60" text-anchor="middle">모집책 · 경매사 · 인사권과 배제의 권력</text>
+
+      <rect class="box pot" x="270" y="164" width="180" height="58" rx="29"/>
+      <text class="t1" x="360" y="190" text-anchor="middle">경매 골드 풀</text>
+      <text class="t2" x="360" y="208" text-anchor="middle">일정 종료 후 분배</text>
+
+      <rect class="box" x="16" y="296" width="200" height="84" rx="4"/>
+      <text class="t1" x="116" y="324" text-anchor="middle">선수</text>
+      <text class="t2" x="116" y="344" text-anchor="middle">분배금 수령</text>
+      <text class="t2" x="116" y="362" text-anchor="middle">역할량이 손님보다 높아야 함</text>
+
+      <rect class="box" x="260" y="296" width="200" height="84" rx="4"/>
+      <text class="t1" x="360" y="324" text-anchor="middle">업손 (업적 손님)</text>
+      <text class="t2" x="360" y="344" text-anchor="middle">업비 기부 · 분배 제외</text>
+      <text class="t2" x="360" y="362" text-anchor="middle">입찰은 자율</text>
+
+      <rect class="box" x="504" y="296" width="200" height="84" rx="4"/>
+      <text class="t1" x="604" y="324" text-anchor="middle">깡손 (손님)</text>
+      <text class="t2" x="604" y="344" text-anchor="middle">분배 제외</text>
+      <text class="t2" x="604" y="362" text-anchor="middle">상위 아이템이면 입찰 의무</text>
+
+      <path class="ln d" d="M360 78 L360 160" marker-end="url(#a2)"/>
+      <text class="tl" x="368" y="124" style="fill:var(--muted)">경매 진행</text>
+      <path class="ln d" d="M250 52 C 120 60, 50 180, 60 292" marker-end="url(#a2)"/>
+      <text class="tl" x="46" y="120" style="fill:var(--muted)">모집 · 선별</text>
+
+      <path class="ln" d="M360 296 L360 226" marker-end="url(#a1)"/>
+      <text class="tl" x="368" y="268">업비 · 입찰</text>
+      <path class="ln" d="M600 296 C 590 240, 520 200, 454 194" marker-end="url(#a1)"/>
+      <text class="tl" x="540" y="240">입찰 골드</text>
+      <path class="ln" d="M268 196 C 180 200, 130 240, 120 292" marker-end="url(#a1)"/>
+      <text class="tl" x="168" y="232">N분의 1</text>
+
+      <path class="ln d" d="M216 360 C 330 420, 470 420, 600 384" marker-end="url(#a2)"/>
+      <text class="tl" x="360" y="418" text-anchor="middle" style="fill:var(--muted)">아이템 ‘생산’ → 손님에게</text>
+    </svg>
+    </div>
+    <p class="note">선수의 역할량이 손님보다 낮으면 ‘분제’(분배 제외)를 당하거나 손님이 분배 대상에 포함된다. 일정이 끝나면 선수가 다른 파티의 손님이 되기도 하므로, 이 관계는 판매자-구매자 도식을 따르되 고정된 계급은 아니다.</p>
+  </figure>
+
+  <h3>측정 도구의 계보</h3>
+  <figure>
+    <figcaption>휘발되던 숫자가 박제된 기록이 되기까지</figcaption>
+    <ol class="tl">
+      <li><span class="yr">2004</span><div><b>WoW 서비스 시작, 애드온 생태계</b><span>공개된 UI 소스를 게이머가 수정해 ‘개인의 게임 환경을 개조’</span></div></li>
+      <li><span class="yr">리치왕의 분노</span><div><b>Gearscore</b><span>장비 부위별 가중치를 반영한 단일 점수. 파티 구성 판단을 빠르게 만들었다</span></div></li>
+      <li><span class="yr">대격변</span><div><b>평균 아이템 레벨, 공식 캐릭터 창에 표시</b><span>게이머가 만든 지표를 개발사가 흡수한 공식 계량화</span></div></li>
+      <li><span class="yr">상시</span><div><b>데미지 미터기 (Skada 등)</b><span>피해·치유·사망·차단을 실시간 기록. 공대가 해체되면 사라지는 휘발성 데이터</span></div></li>
+      <li><span class="yr">2013</span><div><b>Warcraft Logs 제작 (Kihra)</b><span>전투 전체를 로그 파일로 올려 리플레이·랭킹·백분율 제공</span></div></li>
+      <li class="mark"><span class="yr">2016 전후</span><div><b>한국 서버 레이드 문화와 결합</b><span>전투정보실 장기 오류, 쉬운 업로드. 로그 링크가 귓속말 이력서에 첨부되기 시작</span></div></li>
+      <li><span class="yr">2017–18</span><div><b>WoW Analyzer</b><span>로그를 받아 개선점을 ‘미세한 넛지’로 제안. 같은 데이터의 다른 쓰임</span></div></li>
+      <li class="after"><span class="yr">2021</span><div><b>신화+ 평점 공식 도입 (9.1 패치)</b><span>서드파티 점수(Raider.IO)가 다시 개발사 지표로 흡수됨 · 논문 이후</span></div></li>
+      <li class="after"><span class="yr">2026</span><div><b>〈한밤〉 전투 애드온 제한과 내장 미터</b><span>측정의 주체가 플레이어에서 개발사로 이동 · 논문 이후</span></div></li>
+    </ol>
+  </figure>
+
+  <h3>게시판이 가장 많이 말한 것</h3>
+  <figure>
+    <figcaption>〈와우 인벤〉 레이드 게시판 월별 단어 빈도 · 상위 8개어 · 2017.12–2018.05</figcaption>
+    <div class="scroll"><table class="heat" id="heat"></table></div>
+    <p class="note">‘로그’는 여섯 달 내내 1위였다. ‘공장’은 공격대장의 줄임말로, 이 단어가 쓰인 글은 대체로 공격대장의 권위가 아니라 실수를 추궁한다. 자료: 본문 [표 1].</p>
+  </figure>
+</section>
+
+<section id="ch3a">
+  <p class="kicker">Chapter 3 · 1. 가상공간의 능력주의</p>
+  <h2>귓속말은 이력서가 되고, 로그는 스펙이 된다</h2>
+  <p class="lede">공격대에 들어가려면 공격대장에게 귓속말로 자신을 소개해야 한다. WCL 이후 그 귓속말에는 로그 링크가 붙었다. 게시판은 이 과정을 이력서·스펙·채용·인턴·자격증의 언어로 말한다.</p>
+
+  <blockquote>“가장 높은 곳에서 가장 낮은 곳에 이르기까지 단순한 학교의 등급을 흉내 내는 지위들의 연속체”
+    <cite>랑시에르, 『불화』 — 매주 재계산되는 WCL 기록에 따라 참여 자격을 얻고 잃는 게이머를 설명하며 인용</cite></blockquote>
+
+  <p>논문은 이 분할이 아직 일어나지 않은 행위까지 미리 규정한다는 점에 주목한다. 다음 주 레이드에서 어떤 게이머가 어떤 대접을 받을지 지난주의 색깔이 정한다. 커뮤니티에서는 “원래 가면 안 되는 사람”이라는 말이 나온다. 능력주의는 노력에 의한 향상을 인정해야 하는데, 이 말은 아직 쌓지 않은 노력까지 색깔 하나로 지운다. 논문은 이것을 능력주의의 자기모순으로 읽는다.</p>
+
+  <h3>같은 직업, 같은 보스, 다른 판정</h3>
+  <figure>
+    <figcaption>흑마법사(악마) A와 B · 안토러스 신화 1번째 보스 ‘가로시 세계파괴자’ · 본문 [표 2], [그림 15–16]</figcaption>
+    <div class="ab-legend"><span style="--c:var(--p-blue)">A · 2018.04.19</span><span style="--c:var(--p-orange)">B · 2018.04.08</span></div>
+    <div class="ab" id="ab"></div>
+    <div class="verdict">
+      <div><b>로그 페이지만 본 공격대장</b>B를 초대한다. DPS는 A가 B의 84.5%, 색은 청색 대 주황. 더 볼 시간이 없다.</div>
+      <div style="background:var(--accent-soft)"><b>받은 피해까지 본 경우</b>A는 보스의 ‘파멸’ 원에 들어가 투사체를 대신 맞았다. 딜을 멈추고 공략을 수행한 쪽은 A다. 전투 시간도 30초 길어 DPS가 불리했다.</div>
+    </div>
+  </figure>
+  <p>수치는 맞았다. 틀린 것은 읽는 방식이다. 협력처럼 측정되지 않는 요인은 은폐되고, 백분율은 그 주의 최고 기록으로 캐릭터에 영구히 따라붙는다.</p>
+</section>
+
+<section id="ch3b">
+  <p class="kicker">Chapter 3 · 현실과 가상의 공조</p>
+  <h2>상사성을 인식하는 순간 규칙은 현실이 된다</h2>
+  <p class="lede">게임 규칙이 현실 시장경제를 닮았다고 게이머가 인식하면, 현실과 가상 양쪽에서 같은 논리를 이중으로 학습한다. 논문은 이 상사성이 기술이 만든 사실이 아니라 게이머가 인식하는 순간 작동하는 문화적 추동력이라고 본다.</p>
+
+  <figure>
+    <figcaption>현실의 능력주의 ↔ 게임 사회의 능력주의</figcaption>
+    <div class="mirror">
+      <div class="hd">현실</div><div class="hd c">상사성</div><div class="hd">게임 사회</div>
+      <div class="l">시장의 수요와 공급</div><div class="m">⇄</div><div class="r">골팟 경매, “시장이 결정하는 거지”</div>
+      <div class="l">이력서 · 스펙 · 채용</div><div class="m">⇄</div><div class="r">귓속말 · 로그 링크 · 초대</div>
+      <div class="l">수능 배치표, 학교의 등급</div><div class="m">⇄</div><div class="r">Rank % 색 등급, 서버별 올스타 순위</div>
+      <div class="l">자기계발과 ‘노오력’의 로드맵</div><div class="m">⇄</div><div class="r">깡손 → 업손 → 노손 선수 → 신화</div>
+      <div class="l">실패는 개인의 책임</div><div class="m">⇄</div><div class="r">“로그 때문이 아니라 원래 가면 안 되는 사람”</div>
+      <div class="l">비판자는 열등감에 사로잡힌 자</div><div class="m">⇄</div><div class="r">“그님로?” 그래서 님 로그는 몇 점인데</div>
+    </div>
+    <div class="flow"><span>상사성 인식</span><i>→</i><span>이중 학습</span><i>→</i><span>능력주의 내면화</span><i>→</i><span>비판할 자격의 박탈</span><i>→</i><span class="end">차별 구조의 견고화</span></div>
+  </figure>
+
+  <h3>무엇이 같고 무엇이 다른가</h3>
+  <figure class="scroll" style="padding:0">
+    <table style="min-width:600px">
+      <thead><tr><th></th><th>현실의 능력주의</th><th>게임 사회의 능력주의</th></tr></thead>
+      <tbody>
+        <tr><th>비판의 초점</th><td>비능력적 요인(세습 자본, 사회·문화 자본)이 출발점을 어긋나게 함</td><td>능력을 정확히 측정할 수 있다는 믿음 자체</td></tr>
+        <tr><th>비능력적 요인</th><td>시초적 불평등을 생산</td><td>‘인맥크래프트’는 있으나 세대 간 유전이 없고, 기록이 공개되어 낙하산을 감내할 의무가 없음</td></tr>
+        <tr><th>위계의 성격</th><td>넘기 어려운 질적 차이, 계급</td><td>역전 가능한 양적 차이, 계층</td></tr>
+        <tr><th>폭력의 주체</th><td>지배-복종 구조</td><td>지배자 없이 ‘익명의 누군가’ 누구나</td></tr>
+        <tr><th>구제 장치</th><td>제도와 복지의 가능성</td><td>‘게임’이라는 이유로 공공의 근거가 없음</td></tr>
+        <tr><th>저항</th><td>정치적 의미를 가질 수 있음</td><td>특정 공대 보이콧이 공동체 전체에 대한 저항처럼 읽혀 동기를 잃음</td></tr>
+      </tbody>
+    </table>
+  </figure>
+  <p>게시판에서 인기를 끈 「(소설) 로그지상주의」는 채팅창에 로그 색이 표시되자 평균 연령 48세의 친목 길드가 조롱 끝에 해체되는 가상의 이야기다. 논문은 이 글을 게이머들이 구조를 인지하고 있다는 증거로 읽으면서도, 자조적인 결말이 저항의 동기 없음을 함께 보여준다고 본다.</p>
+</section>
+
+<section id="ch3c">
+  <p class="kicker">Chapter 3 · 2. 자기계발의 가상적 변주</p>
+  <h2>규율 단계를 ‘수료’한 성과주체</h2>
+  <p class="lede">한병철은 사회가 ‘해야 한다’의 규율사회에서 ‘할 수 있다’의 성과사회로 옮겨 갔고, 성과주체는 타자 대신 자신을 착취한다고 말한다. 논문은 게이머가 성과주체의 모습을 하면서도 규율 단계를 졸업하지 못했다고 진단한다.</p>
+
+  <figure>
+    <figcaption>게이머 주체의 위치</figcaption>
+    <div class="spec">
+      <div class="dot"><span>WoW 레이드 게이머</span><i></i></div>
+      <div class="axis"></div>
+      <div class="ends">
+        <div><b>규율주체 (푸코)</b>부정성, ‘해서는 안 된다’, 타자의 배제</div>
+        <div><b>성과주체 (한병철)</b>긍정성의 과잉, ‘할 수 있다’, 자기 착취</div>
+      </div>
+    </div>
+    <div class="forces">
+      <div><b>규율 쪽으로 당기는 힘</b>색 등급이 ‘참여할 수 없다’와 ‘참여해야만 한다’를 정한다. 데이터 분석마저 규율의 부정성에 갇힌다.</div>
+      <div><b>성과 쪽으로 당기는 힘</b>매주 기록을 갱신하면 상위 계층에 오를 수 있다는 로드맵. 외적 강제 없이 자유로운 강제에 몸을 맡긴다.</div>
+    </div>
+  </figure>
+
+  <h3>분노 대신 혐오</h3>
+  <p>성과사회에서는 이질성이 사라지고 공격성은 자기에게 향한다. 그런데 게임 사회는 오히려 이질성을 계속 생산한다. 논문은 이 공격성이 체제도 자기 자신도 아닌 다른 구성원에게 향하며, 성과사회에서 사라진 분노의 자리를 혐오가 채운다고 본다. 분노는 대상과 마주하지만 혐오는 마주치지 않으려 한다. 그래서 게이머의 혐오는 거대화·사회화된 악플에 가깝다.</p>
+  <p>강지은의 논의를 빌려 논문은 이 상태를 비유한다. 성과주체는 규율사회에서 졸업장을 받지 못하고 ‘수료’ 상태로 남아 있다.</p>
+</section>
+
+<section id="ch4">
+  <p class="kicker">Chapter 4 · 결론</p>
+  <h2>게이머는 누구에게나 비난받고 누구든지 비난한다</h2>
+  <ol class="claims">
+    <li><span>가상 자본이 현실 자본으로 전환되지 않아도 게임 내 차별과 과도한 경쟁은 충분히 작동한다. 게임 규칙이 현실을 반영한다는 인식이 더 근본적인 원인이다.</span></li>
+    <li><span>게임 분석 플랫폼은 더 정확한 정보에 접근할 여건을 만들었지만, 레이드 문화가 강요하는 즉각적 판단 때문에 그 정보를 실제로 읽는 게이머는 극소수다. 해석이 향하는 곳은 단순성과 직관성이다.</span></li>
+    <li><span>따라서 능력주의가 정당성의 근거로 삼아 온 합리성과 객관성은 허상으로 드러나며, 능력주의는 차별을 정당화하는 편향된 기제로 쓰인다.</span></li>
+    <li><span>진보한 기술의 능력주의적 이용은 커뮤니티의 언표 행위를 폭력적으로 만들고, 위계질서에 포함될 필요가 없는 사람까지 질서 안으로 포섭한다.</span></li>
+    <li><span>게이머는 규율주체이면서 성과주체로서 가상공간을 부유하며, ‘익명의 누군가’로서 누구에게나 비난받고 누구든지 비난할 수 있는 주체가 되었다.</span></li>
+  </ol>
+  <p class="note" style="margin-top:18px">논문은 게임을 ‘비(非)가치적 공간’으로 정리하며 끝난다. 게임에 미리 정해진 가치가 없다는 것은 게이머가 그 가치를 자유롭게 생산할 수 있다는 가능성이기도 하다는 각주를 남긴다.</p>
+</section>
+
+<section id="reread">
+  <p class="kicker">Re-reading · 2026</p>
+  <h2>8년 뒤에 다시 읽기</h2>
+  <p class="lede">같은 해 미국에서 Christopher Paul의 『The Toxic Meritocracy of Video Games』(2018)가 나왔다. 서로를 참조하지 않은 두 작업이 같은 결론에 닿았다. Paul은 게임 디자인을 원인으로 보았고, 이 논문은 플레이어가 만든 측정 도구와 지역 레이드 경제를 원인으로 보았다.</p>
+
+  <div class="review">
+    <div>
+      <h3><i style="background:var(--p-green)"></i>유효한 것</h3>
+      <div class="item"><b>비판의 축을 옮겼다</b><p>비능력적 요인 대신 측정 신앙을 겨눴다. 2021년 신화+ 평점 공식화, 2026년 내장 미터까지 측정은 줄지 않고 제도화되었다. 문제를 도구의 정확도가 아니라 해석에서 찾은 진단은 지금도 통한다.</p></div>
+      <div class="item"><b>주장을 데이터로 시연했다</b><p>흑마법사 A·B 비교는 ‘정확한 수치의 오독’을 실제 로그로 보여준다. 같은 화면에서 서로 다른 판정이 나오는 과정을 단계별로 따라간다.</p></div>
+      <div class="item"><b>한병철을 그대로 쓰지 않았다</b><p>‘해야 한다’에서 ‘할 수 있다’로의 이행을 그대로 적용하지 않고, 게임 사회가 이질성을 오히려 생산한다는 반례를 들어 ‘수료’ 상태로 다시 정식화했다. 분노와 혐오의 구분도 여기서 나온다.</p></div>
+      <div class="item"><b>민족지적 기록 가치</b><p>골팟·손님팟·업손팟·분제·깡손·그님로 같은 한국 서버의 규칙과 은어를 체계적으로 정리한 학술 기록은 드물다.</p></div>
+    </div>
+    <div>
+      <h3><i style="background:var(--p-orange)"></i>다시 쓴다면</h3>
+      <div class="item"><b>토큰이라는 통로</b><p><span class="tag o">관찰</span>본문이 인용한 게시글이 “토큰을 두 개 산 다음 영웅 손님을 가라”는 경로를 직접 보여준다. 현금이 골드가 되어 입찰력이 되는 길이다. 그런데 논문은 이를 비능력적 요인으로 이론화하지 않는다. <span class="tag i">추론</span>“비능력적 요인이 약하다”보다 “비능력적 요인이 수치 뒤로 가려진다”가 측정 신앙 비판과 더 잘 맞는다. 블리자드는 2024년 골팟 금지 공지에서 골팟이 현금 거래 수요를 만든다고 밝혔다.</p></div>
+      <div class="item"><b>공격대장의 권력에 대한 긴장</b><p><span class="tag o">관찰</span>2장은 공격대장의 인사권과 배제의 권력을 서술하는데, 3장은 인맥의 영향을 기각하며 공격대장이 “그 자체로 아무런 권한을 가지지 못한다”고 쓴다. 인맥 기각 논증이 이 긴장 위에 서 있다.</p></div>
+      <div class="item"><b>경험적 기반의 폭</b><p><span class="tag o">관찰</span>단어빈도는 관심도를 보여줄 뿐 담론의 방향은 보여주지 않는다. A·B 비교는 두 캐릭터, 한 보스다. <span class="tag i">추론</span>A가 ‘파멸’을 더 맞은 이유가 자발적 협력인지 공략 배정인지 구분되지 않는다. 북미 서버 자료가 없어 한국 특수성 주장은 비교 없이 서 있다.</p></div>
+      <div class="item"><b>행위자성의 자리</b><p><span class="tag o">관찰</span>1장은 데이터와의 상호의존, WoW Analyzer의 넛지를 소개하지만 3장은 저항을 “불가능에 가깝다”로 닫는다. <span class="tag i">추론</span>친목 길드, 로그 제한 없는 구인, 게시판 내부의 ‘로그만능주의’ 비판 같은 실천을 함께 다뤘다면 결론의 비관이 덜 단선적이었을 것이다.</p></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <dl>
+    <dt>서지</dt><dd>송무석, 「MMORPG 게이머 문화의 차별과 능력주의 연구: World of Warcraft의 레이드 콘텐츠와 게임 분석 플랫폼을 중심으로」, 성균관대학교 일반대학원 비교문화협동과정 석사학위논문, 2018.</dd>
+    <dt>원문</dt><dd><a href="http://www.riss.kr/link?id=T14911469" target="_blank" rel="noopener">RISS</a> · <a href="https://scienceon.kisti.re.kr/srch/selectPORSrchArticle.do?cn=DIKO0014911469&amp;dbt=DIKO" target="_blank" rel="noopener">ScienceON</a></dd>
+    <dt>주제어</dt><dd>월드오브워크래프트, 능력주의, 가상공간, UI, 온라인 커뮤니티</dd>
+    <dt>참고</dt><dd><a href="https://www.upress.umn.edu/9781517900410/the-toxic-meritocracy-of-video-games/" target="_blank" rel="noopener">Paul, The Toxic Meritocracy of Video Games (2018)</a> · <a href="https://www.pcgamer.com/wows-experimental-ban-on-gdkp-raids-in-season-of-discovery-has-set-the-community-on-fire-heres-why/" target="_blank" rel="noopener">GDKP 금지와 RMT (PC Gamer, 2024)</a> · <a href="https://raider.io/news/245-raiderio-and-the-new-mythic-rating-system-what-to-expect" target="_blank" rel="noopener">Raider.IO와 신화+ 평점 (2021)</a></dd>
+  </dl>
+</footer>
+</main>
+</div>
+
+<script>
+(function(){
+  var words=["로그","공대","생각","공장","사람","영웅","신화","레이드"];
+  var months=["12월","1월","2월","3월","4월","5월"];
+  var data=[[669,498,291,318,281,453,342,241],[727,383,356,296,331,337,339,274],[639,358,382,450,372,304,262,174],[806,490,310,342,307,354,336,166],[526,344,451,446,453,353,357,313],[439,392,427,311,394,241,277,246]];
+  var all=data.flat(),mn=Math.min.apply(null,all),mx=Math.max.apply(null,all);
+  var h='<thead><tr><th></th>'+months.map(function(m){return '<th>'+m+'</th>'}).join('')+'<th>합계</th></tr></thead><tbody>';
+  words.forEach(function(w,j){
+    var tot=0;
+    h+='<tr'+(j===0?' class="hl"':'')+'><th scope="row">'+w+'</th>';
+    data.forEach(function(row){var v=row[j];tot+=v;var p=Math.round(8+((v-mn)/(mx-mn))*72);
+      h+='<td style="background:color-mix(in srgb, var(--accent) '+p+'%, var(--surface));color:'+(p>52?'var(--surface)':'var(--ink)')+'">'+v+'</td>';});
+    h+='<td class="tot">'+tot.toLocaleString()+'</td></tr>';
+  });
+  document.getElementById('heat').innerHTML=h+'</tbody>';
+
+  var rows=[
+    {k:'DPS',a:1927041.9,b:2279464,fa:function(v){return Math.round(v).toLocaleString()},max:2279464},
+    {k:'Rank %',a:70,b:95,fa:function(v){return v+'%'},max:100,ca:'var(--p-blue)',cb:'var(--p-orange)'},
+    {k:'전투 시간',a:247,b:217,fa:function(v){return Math.floor(v/60)+'분 '+(v%60)+'초'},max:260},
+    {k:'아이템 레벨',a:973,b:974,fa:function(v){return v},max:974,min:960}
+  ];
+  var ab=document.getElementById('ab'),s='';
+  rows.forEach(function(r){
+    var lo=r.min||0;
+    function w(v){return Math.max(4,((v-lo)/(r.max-lo))*100)}
+    s+='<div class="row"><span>'+r.k+'</span><div class="bars">'+
+      '<div class="b"><em>A</em><u><i style="width:'+w(r.a)+'%;background:'+(r.ca||'var(--p-blue)')+'"></i></u><span>'+r.fa(r.a)+'</span></div>'+
+      '<div class="b"><em>B</em><u><i style="width:'+w(r.b)+'%;background:'+(r.cb||'var(--p-orange)')+'"></i></u><span>'+r.fa(r.b)+'</span></div></div></div>';
+  });
+  ab.innerHTML=s+'<p class="note" style="margin:0">아이템 레벨 축은 960부터. A의 DPS는 B의 84.5%. ‘파멸’로 받은 피해는 A가 더 많았다(수치 미표기, 본문 [그림 16]).</p>';
+
+  var links=[].slice.call(document.querySelectorAll('.toc a'));
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){links.forEach(function(l){l.classList.toggle('on',l.getAttribute('href')==='#'+e.target.id)})}})},{rootMargin:'-30% 0px -60% 0px'});
+    ['overview','ch1','ch2','ch3a','ch3b','ch3c','ch4','reread'].forEach(function(id){var el=document.getElementById(id);if(el)io.observe(el)});
+  }
+})();
+</script>
+</body>
+</html>
